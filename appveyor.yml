@@ -1,5 +1,16 @@
 build: off
 
+install:
+ - ps: >
+     if ($env:appveyor_pull_request_number -gt 0) {
+       git fetch -q origin +refs/pull/$env:appveyor_pull_request_number/head
+       $env:commit=(git rev-parse FETCH_HEAD)
+     } else {
+       $env:commit=$env:appveyor_repo_commit
+     }
+     true;
+
 test_script:
   - echo %appveyor_repo_commit%
+  - echo %commit%
   - git rev-parse HEAD~1
