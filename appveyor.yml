@@ -1,0 +1,5 @@
+build: off
+
+test_script:
+  - echo %appveyor_repo_commit%
+  - git rev-parse HEAD~1
